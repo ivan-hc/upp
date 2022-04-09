@@ -1,5 +1,6 @@
-#!/bin/sh
-# Author: Patryk Niedźwiedziński
+#!/usr/bin/env bash
+# This is a fork of https://github.com/pniedzwiedzinski/upp
+# Original Author: Patryk Niedźwiedziński
 # License: MIT
 
 set -uoe pipefail
@@ -60,10 +61,8 @@ function install() {
 	app=`echo $apps | jq '.[0]'`
 	download_link=`echo $app | jq -r '.links[] | select(.type=="Download") .url'`
 	url=$(get_appimage_path $download_link)
-	wget -O /tmp/$1.AppImage $url
-	chmod +x /tmp/$1.AppImage
-	mv /tmp/$1.AppImage /apps
-	echo Installed $1 to /apps/$1.AppImage
+	wget $url
+	chmod +x ./*mage
 }
 
 function get_appimage_path() {
